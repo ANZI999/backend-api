@@ -1,14 +1,19 @@
 package com.socialgame.www.location;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "USER_LOCATION")
+@Table(name = "user_location", 
+	   indexes = {@Index(name = "longitude",  columnList="longitude"),
+			   	  @Index(name = "latitude", columnList="latitude")})
 public class UserLocation {
 	
 	@Id
+	@Column(name="user_id")
 	private String userID;
 	private double longitude;
 	private double latitude;

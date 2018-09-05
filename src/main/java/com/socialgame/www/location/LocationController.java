@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.socialgame.www.Response;
-import com.socialgame.www.user.User;
 
 @RequestMapping(value="/location")
 @RestController
