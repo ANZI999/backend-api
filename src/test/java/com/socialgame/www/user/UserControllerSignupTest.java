@@ -6,6 +6,8 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -17,8 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
@@ -36,19 +36,14 @@ public class UserControllerSignupTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
-	 
-	@Autowired
-	private ObjectMapper mapper;
 	
 	@Test
-	public void happyPath() throws Exception {
+	public void happyPath() throws Exception {		
 		ArgumentCaptor<User> captor = ArgumentCaptor.forClass(User.class);
-		User user = new User();
-		user.setPassword(PASSWORD);
-		user.setUsername(USERNAME);
+		String userJSON = generateUserJSON(USERNAME, PASSWORD);
 		mockMvc.perform(post("/user/signup")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(user)))
+				.content(userJSON))
 				.andExpect(jsonPath("code", is(HttpStatus.OK.value())));
 		verify(operations).save(captor.capture());
 		assertEquals(PASSWORD, captor.getValue().getPassword());
@@ -57,37 +52,39 @@ public class UserControllerSignupTest {
 	
 	@Test
 	public void tooShortUsername() throws Exception {
-		User user = new User();
-		user.setPassword(PASSWORD);
-		user.setUsername(SHORT_USERNAME);
+		String userJSON = generateUserJSON(SHORT_USERNAME, PASSWORD);
 		mockMvc.perform(post("/user/signup")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(user)))
+				.content(userJSON))
 				.andExpect(jsonPath("code", is(HttpStatus.BAD_REQUEST.value())))
 				.andExpect(jsonPath("message", is(User.USERNAME_VALIDATION_ERROR)));
 	}
 	
 	@Test
 	public void tooLongUsername() throws Exception {
-		User user = new User();
-		user.setPassword(PASSWORD);
-		user.setUsername(LONG_USERNAME);
+		String userJSON = generateUserJSON(LONG_USERNAME, PASSWORD);
 		mockMvc.perform(post("/user/signup")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(user)))
+				.content(userJSON))
 				.andExpect(jsonPath("code", is(HttpStatus.BAD_REQUEST.value())))
 				.andExpect(jsonPath("message", is(User.USERNAME_VALIDATION_ERROR)));
 	}
 	
 	@Test
 	public void tooShortPassword() throws Exception {
-		User user = new User();
-		user.setUsername(USERNAME);
-		user.setPassword(SHORT_PASSWORD);		
+		String userJSON = generateUserJSON(USERNAME, SHORT_PASSWORD);
 		mockMvc.perform(post("/user/signup")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(user)))
+				.content(userJSON))
 				.andExpect(jsonPath("code", is(HttpStatus.BAD_REQUEST.value())))
 				.andExpect(jsonPath("message", is(User.PASSWORD_VALIDATION_ERROR)));
+	}
+	
+	private String generateUserJSON(String username, String password) throws JSONException {
+		String json = new JSONObject()
+                .put("password", password)
+                .put("username", username)
+                .toString();
+		return json;
 	}
 }
