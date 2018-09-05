@@ -1,10 +1,7 @@
 package com.socialgame.www.user;
 
-import static org.hamcrest.Matchers.any;
-import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -27,7 +24,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @WebMvcTest(UserController.class)
 public class UserControllerSignupTest {
 	private static final String USERNAME = "andres";
-	private static final String PASSWORD = "xxx";
+	private static final String PASSWORD = "xxxxxx";
+	
+	private static final String SHORT_USERNAME = "and";
+	private static final String LONG_USERNAME = "veryveryveryvery";
+	
+	private static final String SHORT_PASSWORD = "xxxxx";
 	
 	@MockBean
 	private MongoOperations operations;
@@ -51,5 +53,41 @@ public class UserControllerSignupTest {
 		verify(operations).save(captor.capture());
 		assertEquals(PASSWORD, captor.getValue().getPassword());
 		assertEquals(USERNAME, captor.getValue().getUsername());
+	}
+	
+	@Test
+	public void tooShortUsername() throws Exception {
+		User user = new User();
+		user.setPassword(PASSWORD);
+		user.setUsername(SHORT_USERNAME);
+		mockMvc.perform(post("/user/signup")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(mapper.writeValueAsString(user)))
+				.andExpect(jsonPath("code", is(HttpStatus.BAD_REQUEST.value())))
+				.andExpect(jsonPath("message", is(User.USERNAME_VALIDATION_ERROR)));
+	}
+	
+	@Test
+	public void tooLongUsername() throws Exception {
+		User user = new User();
+		user.setPassword(PASSWORD);
+		user.setUsername(LONG_USERNAME);
+		mockMvc.perform(post("/user/signup")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(mapper.writeValueAsString(user)))
+				.andExpect(jsonPath("code", is(HttpStatus.BAD_REQUEST.value())))
+				.andExpect(jsonPath("message", is(User.USERNAME_VALIDATION_ERROR)));
+	}
+	
+	@Test
+	public void tooShortPassword() throws Exception {
+		User user = new User();
+		user.setUsername(USERNAME);
+		user.setPassword(SHORT_PASSWORD);		
+		mockMvc.perform(post("/user/signup")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(mapper.writeValueAsString(user)))
+				.andExpect(jsonPath("code", is(HttpStatus.BAD_REQUEST.value())))
+				.andExpect(jsonPath("message", is(User.PASSWORD_VALIDATION_ERROR)));
 	}
 }

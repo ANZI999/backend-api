@@ -2,10 +2,10 @@ package com.socialgame.www;
 
 public class Response {
 	
-	private int code;
-	private String status;
-	private String message;
-	private String data;
+	protected int code;
+	protected String status;
+	protected String message;
+	protected String data;
 	
 	public Response() {
 		code = 200;
