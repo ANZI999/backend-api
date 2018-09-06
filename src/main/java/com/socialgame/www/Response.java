@@ -1,9 +1,13 @@
 package com.socialgame.www;
 
+import com.fasterxml.jackson.annotation.JsonRawValue;
+
 public class Response {
 	
 	protected int code;
 	protected String status;
+	
+	@JsonRawValue
 	protected String message;
 	protected String data;
 	

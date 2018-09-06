@@ -57,7 +57,7 @@ public class UserControllerSignupTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(userJSON))
 				.andExpect(jsonPath("code", is(HttpStatus.BAD_REQUEST.value())))
-				.andExpect(jsonPath("message", is(User.USERNAME_VALIDATION_ERROR)));
+				.andExpect(jsonPath("$['message']['username']", is(User.USERNAME_VALIDATION_ERROR)));
 	}
 	
 	@Test
@@ -67,7 +67,7 @@ public class UserControllerSignupTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(userJSON))
 				.andExpect(jsonPath("code", is(HttpStatus.BAD_REQUEST.value())))
-				.andExpect(jsonPath("message", is(User.USERNAME_VALIDATION_ERROR)));
+				.andExpect(jsonPath("$['message']['username']", is(User.USERNAME_VALIDATION_ERROR)));
 	}
 	
 	@Test
@@ -77,7 +77,18 @@ public class UserControllerSignupTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(userJSON))
 				.andExpect(jsonPath("code", is(HttpStatus.BAD_REQUEST.value())))
-				.andExpect(jsonPath("message", is(User.PASSWORD_VALIDATION_ERROR)));
+				.andExpect(jsonPath("$['message']['password']", is(User.PASSWORD_VALIDATION_ERROR)));
+	}
+	
+	@Test
+	public void shortPasswordAndUsername() throws Exception {
+		String userJSON = generateUserJSON(SHORT_USERNAME, SHORT_PASSWORD);
+		mockMvc.perform(post("/user/signup")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(userJSON))
+				.andExpect(jsonPath("code", is(HttpStatus.BAD_REQUEST.value())))
+				.andExpect(jsonPath("$['message']['password']", is(User.PASSWORD_VALIDATION_ERROR)))
+				.andExpect(jsonPath("$['message']['username']", is(User.USERNAME_VALIDATION_ERROR)));
 	}
 	
 	private String generateUserJSON(String username, String password) throws JSONException {

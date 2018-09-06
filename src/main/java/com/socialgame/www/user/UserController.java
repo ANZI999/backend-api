@@ -1,7 +1,5 @@
 package com.socialgame.www.user;
 
-import java.util.stream.Collectors;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +23,7 @@ public class UserController {
 	@RequestMapping(value="/signup", method = RequestMethod.POST)
 	public Response signup(@Valid @RequestBody User user, BindingResult validUser) {
 		if (validUser.hasErrors()) {
-            return new ErrorResponse(validUser.getAllErrors()
-            		.stream().map( error -> error.getDefaultMessage())
-                    .collect( Collectors.joining( "\n" ) ));
+            return new ErrorResponse(validUser.getAllErrors());
         }
 		
 		operations.save(user);
