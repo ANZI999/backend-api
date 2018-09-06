@@ -20,6 +20,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.socialgame.www.helpers.JSONFactory;
+
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
 public class UserControllerSignupTest {
@@ -40,7 +42,7 @@ public class UserControllerSignupTest {
 	@Test
 	public void happyPath() throws Exception {		
 		ArgumentCaptor<User> captor = ArgumentCaptor.forClass(User.class);
-		String userJSON = generateUserJSON(USERNAME, PASSWORD);
+		String userJSON = JSONFactory.generateUser(USERNAME, PASSWORD);
 		mockMvc.perform(post("/user/signup")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(userJSON))
@@ -52,7 +54,7 @@ public class UserControllerSignupTest {
 	
 	@Test
 	public void tooShortUsername() throws Exception {
-		String userJSON = generateUserJSON(SHORT_USERNAME, PASSWORD);
+		String userJSON = JSONFactory.generateUser(SHORT_USERNAME, PASSWORD);
 		mockMvc.perform(post("/user/signup")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(userJSON))
@@ -62,7 +64,7 @@ public class UserControllerSignupTest {
 	
 	@Test
 	public void tooLongUsername() throws Exception {
-		String userJSON = generateUserJSON(LONG_USERNAME, PASSWORD);
+		String userJSON = JSONFactory.generateUser(LONG_USERNAME, PASSWORD);
 		mockMvc.perform(post("/user/signup")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(userJSON))
@@ -72,7 +74,7 @@ public class UserControllerSignupTest {
 	
 	@Test
 	public void tooShortPassword() throws Exception {
-		String userJSON = generateUserJSON(USERNAME, SHORT_PASSWORD);
+		String userJSON = JSONFactory.generateUser(USERNAME, SHORT_PASSWORD);
 		mockMvc.perform(post("/user/signup")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(userJSON))
@@ -82,20 +84,12 @@ public class UserControllerSignupTest {
 	
 	@Test
 	public void shortPasswordAndUsername() throws Exception {
-		String userJSON = generateUserJSON(SHORT_USERNAME, SHORT_PASSWORD);
+		String userJSON = JSONFactory.generateUser(SHORT_USERNAME, SHORT_PASSWORD);
 		mockMvc.perform(post("/user/signup")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(userJSON))
 				.andExpect(jsonPath("code", is(HttpStatus.BAD_REQUEST.value())))
 				.andExpect(jsonPath("$['message']['password']", is(User.PASSWORD_VALIDATION_ERROR)))
 				.andExpect(jsonPath("$['message']['username']", is(User.USERNAME_VALIDATION_ERROR)));
-	}
-	
-	private String generateUserJSON(String username, String password) throws JSONException {
-		String json = new JSONObject()
-                .put("password", password)
-                .put("username", username)
-                .toString();
-		return json;
 	}
 }
