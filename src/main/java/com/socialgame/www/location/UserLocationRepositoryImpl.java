@@ -15,7 +15,9 @@ public class UserLocationRepositoryImpl implements UserLocationRepositoryCustom 
 	public List<UserLocation> getClosest(UserLocation userLocation) {
 		String sql = "SELECT * FROM user_location "
 				   + "WHERE user_id <> ?"
-				   + "ORDER BY POWER((RADIANS(latitude) - ?)/2, 2) + COS(?)*COS(RADIANS(latitude))*POWER((RADIANS(longitude) - ?)/2, 2) ASC "
+				   + "ORDER BY "
+				   + "	POWER((RADIANS(latitude) - ?)/2, 2) + "
+				   + "	COS(?)*COS(RADIANS(latitude))*POWER((RADIANS(longitude) - ?)/2, 2) ASC "
 				   + "LIMIT 20";
 		Query query = entityManager.createNativeQuery(sql, UserLocation.class);
 		query.setParameter(1, userLocation.getUserID());

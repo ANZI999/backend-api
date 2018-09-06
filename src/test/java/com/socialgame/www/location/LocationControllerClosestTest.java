@@ -1,14 +1,17 @@
 package com.socialgame.www.location;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -21,7 +24,7 @@ import com.socialgame.www.helpers.JSONFactory;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(LocationController.class)
-public class LocationControllerUpdateTest {
+public class LocationControllerClosestTest {
 	
 	@MockBean
 	private UserLocationRepository userLocationRepository;
@@ -31,14 +34,23 @@ public class LocationControllerUpdateTest {
 	
 	@Test
 	public void happyPath() throws Exception {
-		ArgumentCaptor<UserLocation> captor = ArgumentCaptor.forClass(UserLocation.class);
+		List<UserLocation> closestResult = new ArrayList<UserLocation>();
+		closestResult.add(new UserLocation("A", 12.5664654, 67.534225));
+		closestResult.add(new UserLocation("B", 12.5754654, 67.634225));
+		closestResult.add(new UserLocation("C", 12.5854654, 67.934225));
+		
 		
 		String userLocation = JSONFactory.generateUserLocation("karl", 12.5654654, 67.434225);
-		mockMvc.perform(post("/location/update")
+		when(userLocationRepository.getClosest(any(UserLocation.class))).thenReturn(closestResult);
+		
+		mockMvc.perform(get("/location/closest")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(userLocation))
-				.andExpect(jsonPath("code", is(HttpStatus.OK.value())));
-		verify(userLocationRepository).save(captor.capture());
-		assertEquals("karl", captor.getValue().getUserID());
+				.andExpect(jsonPath("code", is(HttpStatus.OK.value())))
+				.andExpect(jsonPath("$['data']", hasSize(3)))
+				.andExpect(jsonPath("$['data'][0]['userID']", is("A")))
+				.andExpect(jsonPath("$['data'][1]['userID']", is("B")))
+				.andExpect(jsonPath("$['data'][2]['userID']", is("C")));
+		
 	}
 }

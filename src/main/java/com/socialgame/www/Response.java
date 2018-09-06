@@ -9,11 +9,19 @@ public class Response {
 	
 	@JsonRawValue
 	protected String message;
+	
+	@JsonRawValue
 	protected String data;
 	
 	public Response() {
 		code = 200;
 		status = "success";
+	}
+
+	public Response(String dataJSON) {
+		code = 200;
+		status = "success";
+		data = dataJSON;
 	}
 
 	public int getCode() {
