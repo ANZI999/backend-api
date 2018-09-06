@@ -1,10 +1,10 @@
 package com.socialgame.backendapi.location;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 import java.util.ArrayList;
@@ -21,9 +21,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.socialgame.backendapi.helpers.JSONFactory;
-import com.socialgame.backendapi.location.LocationController;
-import com.socialgame.backendapi.location.UserLocation;
-import com.socialgame.backendapi.location.UserLocationRepository;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(LocationController.class)
@@ -41,14 +38,10 @@ public class LocationControllerClosestTest {
 		closestResult.add(new UserLocation("A", 12.5664654, 67.534225));
 		closestResult.add(new UserLocation("B", 12.5754654, 67.634225));
 		closestResult.add(new UserLocation("C", 12.5854654, 67.934225));
+	
+		when(userLocationRepository.getClosest(any(String.class))).thenReturn(closestResult);
 		
-		
-		String userLocation = JSONFactory.generateUserLocation("karl", 12.5654654, 67.434225);
-		when(userLocationRepository.getClosest(any(UserLocation.class))).thenReturn(closestResult);
-		
-		mockMvc.perform(post("/location/closest")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(userLocation))
+		mockMvc.perform(get("/location/closest/karl"))
 				.andExpect(jsonPath("code", is(HttpStatus.OK.value())))
 				.andExpect(jsonPath("$['data']", hasSize(3)))
 				.andExpect(jsonPath("$['data'][0]['userID']", is("A")))

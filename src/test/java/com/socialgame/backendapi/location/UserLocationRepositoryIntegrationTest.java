@@ -33,21 +33,16 @@ public class UserLocationRepositoryIntegrationTest {
 		
 		UserLocation userLocationThree = new UserLocation("artur", 45.1233, 12.5); //95
 		userLocationRepository.save(userLocationThree);
+		
+		UserLocation userLocationFour = new UserLocation("rita", 45.985, 12.658);
+		userLocationRepository.save(userLocationFour);
 	}
 	
     @Test
     public void getClosest() throws Exception {
-    	UserLocation userLocationFour = new UserLocation("rita", 45.985, 12.658);
-    	List<UserLocation> closest = userLocationRepository.getClosest(userLocationFour);
+    	List<UserLocation> closest = userLocationRepository.getClosest("rita");
     	assertEquals(3, closest.size());
     	assertEquals("mihkel", closest.get(0).getUserID());
     	assertEquals("karl", closest.get(1).getUserID());
-    }
-    
-    @Test
-    public void getClosestExcludeMyself() throws Exception {
-    	UserLocation userLocationFour = new UserLocation("mihkel", 45.985, 12.658);
-    	List<UserLocation> closest = userLocationRepository.getClosest(userLocationFour);
-    	assertEquals(2, closest.size());
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserLocationRepositoryCustom {
 
-	List<UserLocation> getClosest(UserLocation userLocation);
+	List<UserLocation> getClosest(String userID);
 	
 
 }
