@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.socialgame.www.helpers.JSONFactory;
 import com.socialgame.www.user.User;
 import com.socialgame.www.user.UserController;
 
@@ -30,22 +31,18 @@ public class LocationControllerUpdateTest {
 	private UserLocationRepository userLocationRepository;
 	
 	@Autowired
-	private ObjectMapper mapper;
-	
-	@Autowired
 	private MockMvc mockMvc;
 	
 	@Test
 	public void happyPath() throws Exception {
 		ArgumentCaptor<UserLocation> captor = ArgumentCaptor.forClass(UserLocation.class);
 		
-		UserLocation userLocation = new UserLocation("karl", 12.5654654, 67.434225);
+		String userLocation = JSONFactory.generateUserLocation("karl", 12.5654654, 67.434225);
 		mockMvc.perform(post("/location/update")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(mapper.writeValueAsString(userLocation)))
+				.content(userLocation))
 				.andExpect(jsonPath("code", is(HttpStatus.OK.value())));
 		verify(userLocationRepository).save(captor.capture());
-		//assertEquals(PASSWORD, captor.getValue().getPassword());
-		//assertEquals(USERNAME, captor.getValue().getUsername());
+		assertEquals("karl", captor.getValue().getUserID());
 	}
 }
