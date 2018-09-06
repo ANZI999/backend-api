@@ -1,4 +1,4 @@
-package com.socialgame.www.location;
+package com.socialgame.backendapi.location;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.socialgame.www.Response;
+import com.socialgame.backendapi.Response;
 
 @RequestMapping(value="/location")
 @RestController
@@ -25,7 +25,7 @@ public class LocationController {
 		return new Response();
 	}
 	
-	@RequestMapping(value="/closest", method = RequestMethod.GET)
+	@RequestMapping(value="/closest", method = RequestMethod.POST)
 	public Response closest(@RequestBody UserLocation userLocation) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
 		

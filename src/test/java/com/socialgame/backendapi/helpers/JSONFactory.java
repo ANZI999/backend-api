@@ -1,4 +1,4 @@
-package com.socialgame.www.helpers;
+package com.socialgame.backendapi.helpers;
 
 import org.json.JSONException;
 import org.json.JSONObject;

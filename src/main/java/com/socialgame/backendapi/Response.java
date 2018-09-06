@@ -1,4 +1,4 @@
-package com.socialgame.www;
+package com.socialgame.backendapi;
 
 import com.fasterxml.jackson.annotation.JsonRawValue;
 

@@ -1,4 +1,4 @@
-package com.socialgame.www.user;
+package com.socialgame.backendapi.user;
 
 import javax.validation.constraints.Size;
 

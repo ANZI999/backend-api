@@ -1,4 +1,4 @@
-package com.socialgame.www.user;
+package com.socialgame.backendapi.user;
 
 import javax.validation.Valid;
 
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.socialgame.www.ErrorResponse;
-import com.socialgame.www.Response;
+import com.socialgame.backendapi.ErrorResponse;
+import com.socialgame.backendapi.Response;
 
 @RequestMapping(value="/user")
 @RestController

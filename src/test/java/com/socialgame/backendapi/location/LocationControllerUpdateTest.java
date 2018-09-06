@@ -1,4 +1,4 @@
-package com.socialgame.www.location;
+package com.socialgame.backendapi.location;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
@@ -17,7 +17,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.socialgame.www.helpers.JSONFactory;
+import com.socialgame.backendapi.helpers.JSONFactory;
+import com.socialgame.backendapi.location.LocationController;
+import com.socialgame.backendapi.location.UserLocation;
+import com.socialgame.backendapi.location.UserLocationRepository;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(LocationController.class)

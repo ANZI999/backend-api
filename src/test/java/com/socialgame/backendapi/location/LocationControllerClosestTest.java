@@ -1,10 +1,10 @@
-package com.socialgame.www.location;
+package com.socialgame.backendapi.location;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 import java.util.ArrayList;
@@ -20,7 +20,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.socialgame.www.helpers.JSONFactory;
+import com.socialgame.backendapi.helpers.JSONFactory;
+import com.socialgame.backendapi.location.LocationController;
+import com.socialgame.backendapi.location.UserLocation;
+import com.socialgame.backendapi.location.UserLocationRepository;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(LocationController.class)
@@ -43,7 +46,7 @@ public class LocationControllerClosestTest {
 		String userLocation = JSONFactory.generateUserLocation("karl", 12.5654654, 67.434225);
 		when(userLocationRepository.getClosest(any(UserLocation.class))).thenReturn(closestResult);
 		
-		mockMvc.perform(get("/location/closest")
+		mockMvc.perform(post("/location/closest")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(userLocation))
 				.andExpect(jsonPath("code", is(HttpStatus.OK.value())))

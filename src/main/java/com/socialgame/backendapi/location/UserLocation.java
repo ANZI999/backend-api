@@ -1,4 +1,4 @@
-package com.socialgame.www.location;
+package com.socialgame.backendapi.location;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

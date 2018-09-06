@@ -1,4 +1,4 @@
-package com.socialgame.www.location;
+package com.socialgame.backendapi.location;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
