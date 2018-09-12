@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.socialgame.backendapi.ErrorResponse;
 import com.socialgame.backendapi.Response;
+import com.socialgame.backendapi.SuccessResponse;
+import com.socialgame.backendapi.utils.Helpers;
 
 @RequestMapping(value="/user")
 @RestController
@@ -23,10 +25,10 @@ public class UserController {
 	@RequestMapping(value="/signup", method = RequestMethod.POST)
 	public Response signup(@Valid @RequestBody User user, BindingResult validUser) {
 		if (validUser.hasErrors()) {
-            return new ErrorResponse(validUser.getAllErrors());
+            return new ErrorResponse(Helpers.parseErrors(validUser.getAllErrors()));
         }
 		
 		operations.save(user);
-		return new Response();
+		return new SuccessResponse(null);
 	}
 }

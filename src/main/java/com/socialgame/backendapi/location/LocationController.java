@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.socialgame.backendapi.Response;
+import com.socialgame.backendapi.SuccessResponse;
 
 @RequestMapping(value="/location")
 @RestController
@@ -24,7 +24,7 @@ public class LocationController {
 	@RequestMapping(value="/update", method = RequestMethod.POST)
 	public Response update(@RequestBody UserLocation location) {
 		userLocationRepository.save(location);
-		return new Response();
+		return new SuccessResponse(null);
 	}
 	
 	@RequestMapping(value="/closest/{userID}", method = RequestMethod.GET)
@@ -35,6 +35,6 @@ public class LocationController {
 		List<UserLocation> closest = userLocationRepository.getClosest(userID);
 		
 		String closestJSON = mapper.writeValueAsString(closest);
-		return new Response(closestJSON);
+		return new SuccessResponse(closestJSON);
 	}
 }

@@ -1,8 +1,14 @@
 package com.socialgame.backendapi;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.annotation.JsonRawValue;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Response {
+	
+	private final Logger logger = LoggerFactory.getLogger(Response.class);
 	
 	protected int code;
 	protected String status;
@@ -13,15 +19,21 @@ public class Response {
 	@JsonRawValue
 	protected String data;
 	
-	public Response() {
-		code = 200;
-		status = "success";
+	public Response(int code, String status, String message, String data) {
+		this.code = code;
+		this.status = status;
+		this.message = message;
+		this.data = data;
+		
+		writeToLog();
 	}
 
-	public Response(String dataJSON) {
-		code = 200;
-		status = "success";
-		data = dataJSON;
+	private void writeToLog() {
+		try {
+			logger.info(new ObjectMapper().writeValueAsString(this));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public int getCode() {
