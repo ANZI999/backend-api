@@ -5,6 +5,7 @@ import javax.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Document(collection = "users")
 public class User {
@@ -35,7 +36,11 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		if (password.length() < 6) {
+			this.password = "xx";
+		} else {
+			this.password = new BCryptPasswordEncoder().encode(password);
+		}
 	}
 	
 	

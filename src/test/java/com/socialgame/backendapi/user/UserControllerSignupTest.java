@@ -1,7 +1,10 @@
 package com.socialgame.backendapi.user;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -23,7 +26,7 @@ import com.socialgame.backendapi.user.User;
 import com.socialgame.backendapi.user.UserController;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(UserController.class)
+@WebMvcTest(controllers = UserController.class, secure = false)
 public class UserControllerSignupTest {
 	private static final String USERNAME = "andres";
 	private static final String PASSWORD = "xxxxxx";
@@ -48,7 +51,7 @@ public class UserControllerSignupTest {
 				.content(userJSON))
 				.andExpect(jsonPath("code", is(HttpStatus.OK.value())));
 		verify(userRepository).save(captor.capture());
-		assertEquals(PASSWORD, captor.getValue().getPassword());
+		assertThat(captor.getValue().getPassword(), not(equalTo(PASSWORD)));
 		assertEquals(USERNAME, captor.getValue().getUsername());
 	}
 	

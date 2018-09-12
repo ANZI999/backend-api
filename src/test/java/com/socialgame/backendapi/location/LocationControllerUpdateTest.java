@@ -23,7 +23,7 @@ import com.socialgame.backendapi.location.UserLocation;
 import com.socialgame.backendapi.location.UserLocationRepository;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(LocationController.class)
+@WebMvcTest(controllers = LocationController.class, secure = false)
 public class LocationControllerUpdateTest {
 	
 	@MockBean
