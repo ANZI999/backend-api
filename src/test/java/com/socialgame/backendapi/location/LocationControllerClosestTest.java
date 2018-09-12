@@ -21,7 +21,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.socialgame.backendapi.helpers.JSONFactory;
-import com.socialgame.backendapi.user.UserController;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = LocationController.class, secure = false)
