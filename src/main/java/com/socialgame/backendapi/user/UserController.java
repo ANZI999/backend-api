@@ -20,7 +20,7 @@ import com.socialgame.backendapi.utils.Helpers;
 public class UserController {
 	
 	@Autowired
-	private MongoOperations operations;	
+	private UserRepository userRepository;	
 	
 	@RequestMapping(value="/signup", method = RequestMethod.POST)
 	public Response signup(@Valid @RequestBody User user, BindingResult validUser) {
@@ -28,7 +28,7 @@ public class UserController {
             return new ErrorResponse(Helpers.parseErrors(validUser.getAllErrors()));
         }
 		
-		operations.save(user);
+		userRepository.save(user);
 		return new SuccessResponse(null);
 	}
 }

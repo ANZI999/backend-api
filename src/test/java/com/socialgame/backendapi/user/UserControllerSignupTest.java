@@ -34,7 +34,7 @@ public class UserControllerSignupTest {
 	private static final String SHORT_PASSWORD = "xxxxx";
 	
 	@MockBean
-	private MongoOperations operations;
+	private UserRepository userRepository;
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -47,7 +47,7 @@ public class UserControllerSignupTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(userJSON))
 				.andExpect(jsonPath("code", is(HttpStatus.OK.value())));
-		verify(operations).save(captor.capture());
+		verify(userRepository).save(captor.capture());
 		assertEquals(PASSWORD, captor.getValue().getPassword());
 		assertEquals(USERNAME, captor.getValue().getUsername());
 	}
