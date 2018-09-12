@@ -1,4 +1,4 @@
-package com.socialgame.backendapi;
+package com.socialgame.backendapi.response;
 
 import org.springframework.http.HttpStatus;
 

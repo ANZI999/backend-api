@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.socialgame.backendapi.ErrorResponse;
-import com.socialgame.backendapi.Response;
-import com.socialgame.backendapi.SuccessResponse;
+import com.socialgame.backendapi.response.ErrorResponse;
+import com.socialgame.backendapi.response.Response;
+import com.socialgame.backendapi.response.SuccessResponse;
 import com.socialgame.backendapi.utils.Helpers;
 
 @RequestMapping(value="/user")
