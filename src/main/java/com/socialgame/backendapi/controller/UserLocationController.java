@@ -18,7 +18,7 @@ import com.socialgame.backendapi.response.SuccessResponse;
 
 @RequestMapping(value="/location")
 @RestController
-public class LocationController {
+public class UserLocationController {
 	
 	@Autowired
 	private UserLocationRepository userLocationRepository;

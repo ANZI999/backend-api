@@ -1,4 +1,4 @@
-package com.socialgame.backendapi.location;
+package com.socialgame.backendapi.repository;
 
 import static org.junit.Assert.assertEquals;
 

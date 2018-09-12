@@ -1,4 +1,4 @@
-package com.socialgame.backendapi.user;
+package com.socialgame.backendapi.controller;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
