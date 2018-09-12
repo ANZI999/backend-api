@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.socialgame.backendapi.repository.UserLocationRepository;
 import com.socialgame.backendapi.response.Response;
 import com.socialgame.backendapi.response.SuccessResponse;
 

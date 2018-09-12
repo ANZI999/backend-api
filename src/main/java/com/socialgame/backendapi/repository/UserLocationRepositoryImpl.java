@@ -1,10 +1,12 @@
-package com.socialgame.backendapi.location;
+package com.socialgame.backendapi.repository;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
+import com.socialgame.backendapi.location.UserLocation;
 
 public class UserLocationRepositoryImpl implements UserLocationRepositoryCustom {
 

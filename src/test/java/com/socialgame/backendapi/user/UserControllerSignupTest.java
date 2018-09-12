@@ -22,6 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.socialgame.backendapi.helpers.JSONFactory;
+import com.socialgame.backendapi.repository.UserRepository;
 import com.socialgame.backendapi.user.User;
 import com.socialgame.backendapi.user.UserController;
 

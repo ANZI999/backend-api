@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.socialgame.backendapi.repository.UserRepository;
 import com.socialgame.backendapi.response.ErrorResponse;
 import com.socialgame.backendapi.response.Response;
 import com.socialgame.backendapi.response.SuccessResponse;

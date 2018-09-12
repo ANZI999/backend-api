@@ -1,4 +1,4 @@
-package com.socialgame.backendapi.user;
+package com.socialgame.backendapi.repository;
 
 import java.util.Arrays;
 import java.util.List;

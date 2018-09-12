@@ -12,7 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.socialgame.backendapi.location.UserLocation;
-import com.socialgame.backendapi.location.UserLocationRepository;
+import com.socialgame.backendapi.repository.UserLocationRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest

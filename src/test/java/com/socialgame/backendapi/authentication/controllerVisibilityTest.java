@@ -27,10 +27,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.socialgame.backendapi.config.WebSecurityConfig;
 import com.socialgame.backendapi.helpers.JSONFactory;
 import com.socialgame.backendapi.location.UserLocation;
-import com.socialgame.backendapi.location.UserLocationRepository;
+import com.socialgame.backendapi.repository.UserLocationRepository;
+import com.socialgame.backendapi.repository.UserRepository;
 import com.socialgame.backendapi.user.User;
 import com.socialgame.backendapi.user.UserController;
-import com.socialgame.backendapi.user.UserRepository;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(secure = true)
