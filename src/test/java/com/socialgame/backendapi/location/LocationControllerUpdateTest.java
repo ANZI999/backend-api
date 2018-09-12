@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.socialgame.backendapi.controller.LocationController;
 import com.socialgame.backendapi.helpers.JSONFactory;
-import com.socialgame.backendapi.location.UserLocation;
+import com.socialgame.backendapi.model.UserLocation;
 import com.socialgame.backendapi.repository.UserLocationRepository;
 
 @RunWith(SpringRunner.class)

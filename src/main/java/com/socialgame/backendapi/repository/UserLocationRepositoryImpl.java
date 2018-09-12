@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import com.socialgame.backendapi.location.UserLocation;
+import com.socialgame.backendapi.model.UserLocation;
 
 public class UserLocationRepositoryImpl implements UserLocationRepositoryCustom {
 

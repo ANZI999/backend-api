@@ -17,7 +17,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		com.socialgame.backendapi.user.User userData = repository.findByUsername(username);
+		com.socialgame.backendapi.model.User userData = repository.findByUsername(username);
 		
 		if(userData == null) {
 			throw new UsernameNotFoundException("User not found");

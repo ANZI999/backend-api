@@ -23,8 +23,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.socialgame.backendapi.controller.UserController;
 import com.socialgame.backendapi.helpers.JSONFactory;
+import com.socialgame.backendapi.model.User;
 import com.socialgame.backendapi.repository.UserRepository;
-import com.socialgame.backendapi.user.User;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = UserController.class, secure = false)
