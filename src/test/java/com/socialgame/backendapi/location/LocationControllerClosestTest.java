@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.socialgame.backendapi.controller.LocationController;
 import com.socialgame.backendapi.helpers.JSONFactory;
 import com.socialgame.backendapi.repository.UserLocationRepository;
 

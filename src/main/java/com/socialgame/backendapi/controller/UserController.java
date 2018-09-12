@@ -1,4 +1,4 @@
-package com.socialgame.backendapi.user;
+package com.socialgame.backendapi.controller;
 
 import javax.validation.Valid;
 
@@ -14,6 +14,7 @@ import com.socialgame.backendapi.repository.UserRepository;
 import com.socialgame.backendapi.response.ErrorResponse;
 import com.socialgame.backendapi.response.Response;
 import com.socialgame.backendapi.response.SuccessResponse;
+import com.socialgame.backendapi.user.User;
 import com.socialgame.backendapi.utils.Helpers;
 
 @RequestMapping(value="/user")
