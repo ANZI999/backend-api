@@ -1,4 +1,4 @@
-package com.socialgame.backendapi;
+package com.socialgame.backendapi.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

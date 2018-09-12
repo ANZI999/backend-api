@@ -24,7 +24,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.socialgame.backendapi.WebSecurityConfig;
+import com.socialgame.backendapi.config.WebSecurityConfig;
 import com.socialgame.backendapi.helpers.JSONFactory;
 import com.socialgame.backendapi.location.UserLocation;
 import com.socialgame.backendapi.location.UserLocationRepository;
