@@ -32,5 +32,6 @@ dependencies {
     compile('org.json:json:20180813')
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile("ch.qos.logback:logback-classic")
     
 }
