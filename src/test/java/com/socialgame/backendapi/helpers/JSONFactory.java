@@ -12,9 +12,8 @@ public class JSONFactory {
 		return json;
 	}
 	
-	public static String generateUserLocation(String userID, double longitude, double latitude) throws JSONException {
+	public static String generateLocation(double longitude, double latitude) throws JSONException {
 		String json = new JSONObject()
-				.put("userID", userID)
                 .put("longitude", longitude)
                 .put("latitude", latitude)
                 .toString();

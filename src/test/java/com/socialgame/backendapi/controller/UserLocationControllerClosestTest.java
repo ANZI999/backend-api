@@ -16,12 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.socialgame.backendapi.controller.UserLocationController;
-import com.socialgame.backendapi.helpers.JSONFactory;
+import com.socialgame.backendapi.Session;
+import com.socialgame.backendapi.model.User;
 import com.socialgame.backendapi.model.UserLocation;
 import com.socialgame.backendapi.repository.UserLocationRepository;
 
@@ -29,8 +28,13 @@ import com.socialgame.backendapi.repository.UserLocationRepository;
 @WebMvcTest(controllers = UserLocationController.class, secure = false)
 public class UserLocationControllerClosestTest {
 	
+	private static final String USER_ID = "karl";
+	
 	@MockBean
 	private UserLocationRepository userLocationRepository;
+	
+	@MockBean
+	private Session session;
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -42,9 +46,13 @@ public class UserLocationControllerClosestTest {
 		closestResult.add(new UserLocation("B", 12.5754654, 67.634225));
 		closestResult.add(new UserLocation("C", 12.5854654, 67.934225));
 	
+		User user = new User();
+		user.setID(USER_ID);
+		when(session.getUser()).thenReturn(user);
+		
 		when(userLocationRepository.getClosest(any(String.class))).thenReturn(closestResult);
 		
-		mockMvc.perform(get("/location/closest/karl"))
+		mockMvc.perform(get("/location/closest"))
 				.andExpect(jsonPath("code", is(HttpStatus.OK.value())))
 				.andExpect(jsonPath("$['data']", hasSize(3)))
 				.andExpect(jsonPath("$['data'][0]['userID']", is("A")))

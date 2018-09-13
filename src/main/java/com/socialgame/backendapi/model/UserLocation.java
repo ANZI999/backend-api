@@ -15,7 +15,9 @@ public class UserLocation {
 	@Id
 	@Column(name="user_id")
 	private String userID;
+	
 	private double longitude;
+	
 	private double latitude;
 
 	public UserLocation() {}

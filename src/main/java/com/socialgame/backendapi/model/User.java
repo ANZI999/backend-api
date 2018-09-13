@@ -22,6 +22,14 @@ public class User {
 	
 	@Size(min=6, message=PASSWORD_VALIDATION_ERROR)
 	private String password;
+	
+	public String getID() {
+		return id;
+	}
+	
+	public void setID(String id) {
+		this.id = id;
+	}
 
 	public String getUsername() {
 		return username;
